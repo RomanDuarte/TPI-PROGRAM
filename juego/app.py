@@ -9,5 +9,4 @@ def main():
     # Empezar el juego
     juego.empezar_juego()
 
-if __name__ == "__main__":
-    main()
+main()
