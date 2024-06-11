@@ -14,7 +14,7 @@ class TresEnRaya:
 
     def empezar_juego(self):
         """
-        Inicia el juego y maneja el flujo del mismo.
+        Inicia el juego y maneja el flujo del mismo
         """
         while True:
             self.tablero.mostrar()
