@@ -51,6 +51,13 @@ class TresEnRaya:
         """Cambia al otro jugador."""
         self.jugador_actual = self.jugador2 if self.jugador_actual == self.jugador1 else self.jugador1
 
+    def cambiar_jugador(self):
+        """Cambia al otro jugador."""
+        if self.jugador_actual == self.jugador1:
+            self.jugador_actual = self.jugador2
+        else:
+            self.jugador_actual = self.jugador1
+
     def verificar_ganador(self, ficha):
         """
         Verifica si hay un ganador en el tablero.
