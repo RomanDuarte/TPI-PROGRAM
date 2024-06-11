@@ -1,23 +1,25 @@
+from Piesas import Piece
+
 class Tablero:
     def __init__(self):
-        """Inicializa el tablero con 3 filas y 3 columnas, lleno de espacios en blanco."""
+        """Inicializa el tablero con 3 filas y 3 columnas, lleno de piezas vacías."""
         self.filas = 3
         self.columnas = 3
-        self.tablero = [[' ' for _ in range(self.columnas)] for _ in range(self.filas)]
+        self.tablero = [[Piece("") for _ in range(self.columnas)] for _ in range(self.filas)]
 
     def mostrar(self):
         """Muestra el tablero en la consola."""
         for fila in self.tablero:
-            print("|" + "|".join(fila) + "|")
-            print("-" * (2 * self.columnas + 1))
+            print("|" + "|".join(str(piece).center(3) for piece in fila) + "|")
+            print("-" * (4 * self.columnas + 1))
 
     def agregar_ficha(self, ficha, fila, columna):
         """
         Agrega una ficha en la posición especificada del tablero.
         Retorna True si se pudo agregar la ficha, False si la casilla está ocupada.
         """
-        if self.tablero[fila][columna] == ' ':
-            self.tablero[fila][columna] = ficha
+        if self.tablero[fila][columna].color == '':
+            self.tablero[fila][columna] = Piece(ficha)
             return True
         else:
             return False
@@ -25,6 +27,7 @@ class Tablero:
     def esta_lleno(self):
         """Verifica si el tablero está lleno, es decir, si no hay espacios en blanco."""
         for fila in self.tablero:
-            if ' ' in fila:
-                return False
+            for casilla in fila:
+                if casilla.color == '':
+                    return False
         return True

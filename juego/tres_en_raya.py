@@ -1,4 +1,5 @@
 from tablero import Tablero  # Importa la clase Tablero desde el archivo tablero.py
+from jugador import Jugador
 
 class TresEnRaya:
     def __init__(self, jugador1, jugador2):
@@ -31,6 +32,7 @@ class TresEnRaya:
                 self.cambiar_jugador()
             else:
                 print('Casilla ocupada. Inténtalo de nuevo.')
+
 
     def obtener_posicion(self):
         """
@@ -65,11 +67,11 @@ class TresEnRaya:
 
         # Verifica filas y columnas
         for i in range(3):
-            if tab[i][0] == tab[i][1] == tab[i][2] == ficha or tab[0][i] == tab[1][i] == tab[2][i] == ficha:
+            if tab[i][0].color == tab[i][1].color == tab[i][2].color == ficha or tab[0][i].color == tab[1][i].color == tab[2][i].color == ficha:
                 return True
 
         # Verifica diagonales
-        if tab[0][0] == tab[1][1] == tab[2][2] == ficha or tab[0][2] == tab[1][1] == tab[2][0] == ficha:
+        if tab[0][0].color == tab[1][1].color == tab[2][2].color == ficha or tab[0][2].color == tab[1][1].color == tab[2][0].color == ficha:
             return True
 
         return False
