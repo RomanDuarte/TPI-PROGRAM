@@ -37,14 +37,17 @@ class TresEnRaya:
         Pide al jugador actual que elija una posición en el tablero.
         """
         while True:
-            try:
-                fila = int(input(f'{self.jugador_actual.nombre}, elige una fila (0-2): '))
-                columna = int(input(f'{self.jugador_actual.nombre}, elige una columna (0-2): '))
+            fila_str = input(f'{self.jugador_actual.nombre}, elige una fila (0-2): ')
+            columna_str = input(f'{self.jugador_actual.nombre}, elige una columna (0-2): ')
+            
+            if fila_str.isdigit() and columna_str.isdigit():
+                fila = int(fila_str)
+                columna = int(columna_str)
                 if 0 <= fila <= 2 and 0 <= columna <= 2:
                     return fila, columna
                 else:
                     print('Por favor, introduce valores válidos (0-2).')
-            except ValueError:
+            else:
                 print('Por favor, introduce valores numéricos.')
 
     def cambiar_jugador(self):
