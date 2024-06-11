@@ -28,10 +28,3 @@ class Tablero:
             if ' ' in fila:
                 return False
         return True
-
-    def verificar_ganador(self, ficha):
-        """Verifica si hay un ganador en el tablero."""
-        # Implementa la lógica para verificar si hay un ganador
-        # Esto podría implicar revisar todas las filas, columnas y diagonales para ver si hay una línea completa del mismo símbolo (ficha)
-        # Si hay un ganador, retorna True, de lo contrario, retorna False
-        pass  # Aquí va tu implementación
