@@ -20,3 +20,8 @@ class Jugador:
         if ficha not in ["X", "O"]:
             raise ValueError("La ficha del jugador debe ser 'X' o 'O'.")
         self.ficha = ficha
+        self.victorias = 0  # Inicializamos el contador de victorias a 0
+
+    def incrementar_victoria(self):
+        """Incrementa el contador de victorias del jugador."""
+        self.victorias += 1

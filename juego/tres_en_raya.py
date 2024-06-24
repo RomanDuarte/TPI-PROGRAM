@@ -1,22 +1,16 @@
-from tablero import Tablero  # Importa la clase Tablero desde el archivo tablero.py
 from jugador import Jugador
+from tablero import Tablero
 
 class TresEnRaya:
     def __init__(self, jugador1, jugador2):
-        """
-        Inicializa el juego con dos jugadores y un tablero.
-        """
         if jugador1.ficha == jugador2.ficha:
             raise ValueError("Las fichas de los jugadores deben ser diferentes.")
-        self.tablero = Tablero()  # Crea una instancia de la clase Tablero
+        self.tablero = Tablero()
         self.jugador1 = jugador1
         self.jugador2 = jugador2
         self.jugador_actual = jugador1
 
     def empezar_juego(self):
-        """
-        Inicia el juego y maneja el flujo del mismo
-        """
         while True:
             self.tablero.mostrar()
             fila, columna = self.obtener_posicion()
@@ -24,6 +18,8 @@ class TresEnRaya:
                 if self.verificar_ganador(self.jugador_actual.ficha):
                     self.tablero.mostrar()
                     print(f'{self.jugador_actual.nombre} gana!')
+                    self.jugador_actual.incrementar_victoria()  # Incrementar victoria aquí
+                    self.mostrar_ranking_global()
                     break
                 if self.tablero.esta_lleno():
                     self.tablero.mostrar()
@@ -34,9 +30,6 @@ class TresEnRaya:
                 print('Casilla ocupada. Inténtalo de nuevo.')
 
     def obtener_posicion(self):
-        """
-        Pide al jugador actual que elija una posición en el tablero.
-        """
         while True:
             fila_str = input(f'{self.jugador_actual.nombre}, elige una fila (1-3): ')
             columna_str = input(f'{self.jugador_actual.nombre}, elige una columna (1-3): ')
@@ -52,25 +45,40 @@ class TresEnRaya:
                 print('Por favor, introduce valores numéricos.')
 
     def cambiar_jugador(self):
-        """Cambia al otro jugador."""
         if self.jugador_actual == self.jugador1:
             self.jugador_actual = self.jugador2
         else:
             self.jugador_actual = self.jugador1
 
     def verificar_ganador(self, ficha):
-        """
-        Verifica si hay un ganador en el tablero.
-        """
         tab = self.tablero.tablero
 
-        # Verifica filas y columnas
         for i in range(3):
             if tab[i][0].color == tab[i][1].color == tab[i][2].color == ficha or tab[0][i].color == tab[1][i].color == tab[2][i].color == ficha:
                 return True
 
-        # Verifica diagonales
         if tab[0][0].color == tab[1][1].color == tab[2][2].color == ficha or tab[0][2].color == tab[1][1].color == tab[2][0].color == ficha:
             return True
 
         return False
+
+    def mostrar_ranking_global(self):
+        jugadores = [self.jugador1, self.jugador2]
+        jugadores_ordenados = sorted(jugadores, key=lambda jugador: jugador.victorias, reverse=True)
+        
+        print("\n=== RANKING ===")
+        for i, jugador in enumerate(jugadores_ordenados, start=1):
+            print(f"{i}. {jugador.nombre}: {jugador.victorias} victorias")
+
+def main():
+    ficha_jugador1 = input("Jugador 1, elige tu ficha (X o O): ").upper()
+    jugador1 = Jugador(input("Introduce el nombre del jugador 1: "), ficha_jugador1)
+
+    ficha_jugador2 = 'X' if ficha_jugador1 == 'O' else 'O'
+    jugador2 = Jugador(input("Introduce el nombre del jugador 2: "), ficha_jugador2)
+
+    juego = TresEnRaya(jugador1, jugador2)
+    juego.empezar_juego()
+
+if __name__ == "__main__":
+    main()
