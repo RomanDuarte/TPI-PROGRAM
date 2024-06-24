@@ -13,6 +13,6 @@ Año: 2024
 
 Programacion 2
 
-...(breve descripcion)
+Realizamos un juego clasico como lo es el 3 en raya, o ta te ti. Con un ranking o sistema de puntuacion donde se registran las partidas ganadas por los usuarios. 
 
 Link: https://github.com/RomanDuarte/TPI-PROGRAM
