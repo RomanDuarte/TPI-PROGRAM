@@ -1,11 +1,10 @@
 from jugador import Jugador
 from Piezas import elegir_ficha_jugador
 from tres_en_raya import TresEnRaya
-from datos import diccionario
+from datos import ranking
 
 def mostrar_menu():
     
-
     while True:
         print("\n-------- MENÚ --------")
         print("1. Empezar partida")
@@ -41,11 +40,11 @@ def empezar_partida():
     juego.empezar_juego()
     
 def mostrar_ranking():
-    # Ordenar el diccionario de jugadores por número de victorias de mayor a menor
-    diccionario_ordenado = sorted(diccionario.items(), key=lambda item: item[1], reverse=True)
+    # Ordenar el ranking de jugadores por número de victorias de mayor a menor
+    ranking_ordenado = sorted(ranking.items(), key=lambda item: item[1], reverse=True)
 
     print("\n-------- RANKING DE JUGADORES --------")
-    for nombre, victorias in diccionario_ordenado:
+    for nombre, victorias in ranking_ordenado:
         print(f"{nombre}: {victorias} victorias")
     print("--------------------------------------")
 

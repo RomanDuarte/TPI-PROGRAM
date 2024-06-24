@@ -1,10 +1,10 @@
 from jugador import Jugador
 from tablero import Tablero
-from datos import diccionario
+from datos import ranking
 
 class TresEnRaya:
     def __init__(self, jugador1, jugador2):
-        if jugador1.ficha == jugador2.ficha:
+        if jugador1.ficha == jugador2.ficha: #verifica que las fichas no sean las mismas
             raise ValueError("Las fichas de los jugadores deben ser diferentes.")
         self.tablero = Tablero()
         self.jugador1 = jugador1
@@ -12,8 +12,9 @@ class TresEnRaya:
         self.jugador_actual = jugador1
 
     def empezar_juego(self):
-        diccionario[self.jugador1.nombre] = self.jugador1.victorias
-        diccionario[self.jugador2.nombre] = self.jugador2.victorias
+        #agrega jugadores al diccionario con sus partidas ganadas
+        ranking[self.jugador1.nombre] = self.jugador1.victorias 
+        ranking[self.jugador2.nombre] = self.jugador2.victorias
         
         while True:
             self.tablero.mostrar()
@@ -24,7 +25,7 @@ class TresEnRaya:
                     self.tablero.mostrar()
                     print(f'{self.jugador_actual.nombre} gana!')
                     self.jugador_actual.incrementar_victoria()  # Incrementa el contador de victorias del jugador actual
-                    diccionario[self.jugador_actual.nombre] = self.jugador_actual.victorias
+                    ranking[self.jugador_actual.nombre] = self.jugador_actual.victorias
                     self.mostrar_ranking()  # Muestra el ranking actualizado
                     if self.volver_a_jugar():
                         self.tablero = Tablero()  # Reinicia el tablero
@@ -46,7 +47,7 @@ class TresEnRaya:
             else:
                 print('Casilla ocupada. Inténtalo de nuevo.')
 
-    def obtener_posicion(self):
+    def obtener_posicion(self): #pide las coordenadas por teclado
         while True:
             fila_str = input(f'{self.jugador_actual.nombre}, elige una fila (1-3): ')
             columna_str = input(f'{self.jugador_actual.nombre}, elige una columna (1-3): ')
@@ -54,20 +55,20 @@ class TresEnRaya:
             if fila_str.isdigit() and columna_str.isdigit():
                 fila = int(fila_str) - 1
                 columna = int(columna_str) - 1
-                if 0 <= fila <= 2 and 0 <= columna <= 2:
+                if 0 <= fila <= 2 and 0 <= columna <= 2: #verifica que sean correctas
                     return fila, columna
                 else:
                     print('Por favor, introduce valores válidos (1-3).')
             else:
                 print('Por favor, introduce valores numéricos.')
 
-    def cambiar_jugador(self):
+    def cambiar_jugador(self): #despues que termina el turno cambia el jugador 
         if self.jugador_actual == self.jugador1:
             self.jugador_actual = self.jugador2
         else:
             self.jugador_actual = self.jugador1
 
-    def verificar_ganador(self, ficha):
+    def verificar_ganador(self, ficha): #verifica si hay ganador tanto vertical, horizontal y diagonal 
         tab = self.tablero.tablero
 
         for i in range(3):
@@ -80,14 +81,14 @@ class TresEnRaya:
         return False
     
     def mostrar_ranking(self):
-        # Ordenar el diccionario de jugadores por número de victorias de mayor a menor
-        diccionario_ordenado = sorted(diccionario.items(), key=lambda item: item[1], reverse=True)
+        # Ordenar el ranking de jugadores por número de victorias de mayor a menor
+        ranking_ordenado = sorted(ranking.items(), key=lambda item: item[1], reverse=True)
         print("\n-------- RANKING DE JUGADORES --------")
-        for nombre, victorias in diccionario_ordenado:
+        for nombre, victorias in ranking_ordenado:
             print(f"{nombre}: {victorias} victorias")
         print("--------------------------------------")
     
-    def volver_a_jugar(self):
+    def volver_a_jugar(self):#pregunta al usuario en pantalla si quiere volver a jugar 
         while True:
             respuesta = input("¿Deseas jugar otra partida? (s/n): ").lower()
             if respuesta == 's':
@@ -97,7 +98,7 @@ class TresEnRaya:
             else:
                 print("Respuesta no válida. Por favor, responde 's' o 'n'.")
 
-def main():
+def main(): # al principio de la partida se da a elejir las fichas
     ficha_jugador1 = input("Jugador 1, elige tu ficha (X o O): ").upper()
     jugador1 = Jugador(input("Introduce el nombre del jugador 1: "), ficha_jugador1)
 
