@@ -1,5 +1,6 @@
 from jugador import Jugador
 from tablero import Tablero
+from datos import diccionario
 
 class TresEnRaya:
     def __init__(self, jugador1, jugador2):
@@ -11,6 +12,8 @@ class TresEnRaya:
         self.jugador_actual = jugador1
 
     def empezar_juego(self):
+        diccionario[self.jugador1.nombre] = self.jugador1.victorias
+        diccionario[self.jugador1.nombre] = self.jugador1.victorias
         while True:
             self.tablero.mostrar()
             fila, columna = self.obtener_posicion()
@@ -19,7 +22,7 @@ class TresEnRaya:
                     self.tablero.mostrar()
                     print(f'{self.jugador_actual.nombre} gana!')
                     self.jugador_actual.incrementar_victoria()  # Incrementar victoria aquí
-                    self.mostrar_ranking_global()
+                    self.mostrar_ranking()
                     break
                 if self.tablero.esta_lleno():
                     self.tablero.mostrar()
@@ -61,6 +64,13 @@ class TresEnRaya:
             return True
 
         return False
+    def mostrar_ranking(self):
+    # Ordenar el diccionario de jugadores por número de victorias de mayor a menor
+        diccionario_ordenado = sorted(diccionario.items(), key=lambda item: item[1], reverse=True)
+        print("\n-------- RANKING DE JUGADORES --------")
+        for nombre, victorias in diccionario_ordenado:
+            print(f"{nombre}: {victorias} victorias")
+        print("--------------------------------------")
     
 def main():
     ficha_jugador1 = input("Jugador 1, elige tu ficha (X o O): ").upper()
