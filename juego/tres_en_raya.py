@@ -33,7 +33,6 @@ class TresEnRaya:
             else:
                 print('Casilla ocupada. Inténtalo de nuevo.')
 
-
     def obtener_posicion(self):
         """
         Pide al jugador actual que elija una posición en el tablero.
