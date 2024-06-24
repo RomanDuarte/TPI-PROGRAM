@@ -11,7 +11,7 @@ diccionario = {"Juan" : 20, "Lucas" : 12, "Sofia" : 2, "Roberto" : 7, "Pedro" : 
 diccionario_ordenado = sorted(diccionario.items(), key=lambda item: item[1], reverse=True)
 
 print("----------------------------------")
-print("      RANKING MAS VICTORIAS")
+print("      RANKING MAS VICTORIAS       ")
 print("----------------------------------")
 for clave, valor in diccionario_ordenado:
     print(f"{clave} = {valor}")
