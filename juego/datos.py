@@ -16,3 +16,4 @@ print("----------------------------------")
 for clave, valor in diccionario_ordenado:
     print(f"{clave} = {valor}")
 print("----------------------------------")
+print()

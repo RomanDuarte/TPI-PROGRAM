@@ -4,6 +4,10 @@ from tres_en_raya import TresEnRaya
 from datos import diccionario
 
 def main():
+    print("        INICIA LA PARTIDA         ")
+    print("----------------------------------")
+
+
     # Jugador 1 elige su ficha
     ficha_jugador1 = elegir_ficha_jugador("Jugador 1")
     jugador1 = Jugador(input("Introduce el nombre del jugador 1: "), ficha_jugador1)
