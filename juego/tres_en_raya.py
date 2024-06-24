@@ -61,15 +61,7 @@ class TresEnRaya:
             return True
 
         return False
-
-    def mostrar_ranking_global(self):
-        jugadores = [self.jugador1, self.jugador2]
-        jugadores_ordenados = sorted(jugadores, key=lambda jugador: jugador.victorias, reverse=True)
-        
-        print("\n=== RANKING ===")
-        for i, jugador in enumerate(jugadores_ordenados, start=1):
-            print(f"{i}. {jugador.nombre}: {jugador.victorias} victorias")
-
+    
 def main():
     ficha_jugador1 = input("Jugador 1, elige tu ficha (X o O): ").upper()
     jugador1 = Jugador(input("Introduce el nombre del jugador 1: "), ficha_jugador1)
