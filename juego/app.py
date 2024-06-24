@@ -1,5 +1,5 @@
 from jugador import Jugador
-from Piesas import elegir_ficha_jugador
+from Piezas import elegir_ficha_jugador
 from tres_en_raya import TresEnRaya
 from datos import diccionario
 

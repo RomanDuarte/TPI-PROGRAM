@@ -13,22 +13,36 @@ class TresEnRaya:
 
     def empezar_juego(self):
         diccionario[self.jugador1.nombre] = self.jugador1.victorias
-        diccionario[self.jugador1.nombre] = self.jugador1.victorias
+        diccionario[self.jugador2.nombre] = self.jugador2.victorias
+        
         while True:
             self.tablero.mostrar()
             fila, columna = self.obtener_posicion()
+            
             if self.tablero.agregar_ficha(self.jugador_actual.ficha, fila, columna):
                 if self.verificar_ganador(self.jugador_actual.ficha):
                     self.tablero.mostrar()
                     print(f'{self.jugador_actual.nombre} gana!')
-                    self.jugador_actual.incrementar_victoria()  # Incrementar victoria aquí
-                    self.mostrar_ranking()
-                    break
+                    self.jugador_actual.incrementar_victoria()  # Incrementa el contador de victorias del jugador actual
+                    diccionario[self.jugador_actual.nombre] = self.jugador_actual.victorias
+                    self.mostrar_ranking()  # Muestra el ranking actualizado
+                    if self.volver_a_jugar():
+                        self.tablero = Tablero()  # Reinicia el tablero
+                        self.jugador_actual = self.jugador1  # Reinicia con jugador1
+                        continue  # Vuelve al inicio del bucle para comenzar una nueva partida
+                    else:
+                        break  # Termina el juego si no se desea jugar otra partida
                 if self.tablero.esta_lleno():
                     self.tablero.mostrar()
                     print('¡Empate!')
-                    break
-                self.cambiar_jugador()
+                    if self.volver_a_jugar():
+                        self.tablero = Tablero()  # Reinicia el tablero
+                        self.jugador_actual = self.jugador1  # Reinicia con jugador1
+                        continue  # Vuelve al inicio del bucle para comenzar una nueva partida
+                    else:
+                        break  # Termina el juego si no se desea jugar otra partida
+                
+                self.cambiar_jugador()  # Cambia al siguiente jugador
             else:
                 print('Casilla ocupada. Inténtalo de nuevo.')
 
@@ -38,8 +52,8 @@ class TresEnRaya:
             columna_str = input(f'{self.jugador_actual.nombre}, elige una columna (1-3): ')
             
             if fila_str.isdigit() and columna_str.isdigit():
-                fila =  int(fila_str) - 1
-                columna =  int(columna_str) - 1
+                fila = int(fila_str) - 1
+                columna = int(columna_str) - 1
                 if 0 <= fila <= 2 and 0 <= columna <= 2:
                     return fila, columna
                 else:
@@ -64,14 +78,25 @@ class TresEnRaya:
             return True
 
         return False
+    
     def mostrar_ranking(self):
-    # Ordenar el diccionario de jugadores por número de victorias de mayor a menor
+        # Ordenar el diccionario de jugadores por número de victorias de mayor a menor
         diccionario_ordenado = sorted(diccionario.items(), key=lambda item: item[1], reverse=True)
         print("\n-------- RANKING DE JUGADORES --------")
         for nombre, victorias in diccionario_ordenado:
             print(f"{nombre}: {victorias} victorias")
         print("--------------------------------------")
     
+    def volver_a_jugar(self):
+        while True:
+            respuesta = input("¿Deseas jugar otra partida? (s/n): ").lower()
+            if respuesta == 's':
+                return True
+            elif respuesta == 'n':
+                return False
+            else:
+                print("Respuesta no válida. Por favor, responde 's' o 'n'.")
+
 def main():
     ficha_jugador1 = input("Jugador 1, elige tu ficha (X o O): ").upper()
     jugador1 = Jugador(input("Introduce el nombre del jugador 1: "), ficha_jugador1)

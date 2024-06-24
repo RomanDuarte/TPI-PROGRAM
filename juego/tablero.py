@@ -1,19 +1,19 @@
-from Piesas import Piece
+from Piezas import Piezas
 
 class Tablero:
     def __init__(self):
         self.filas = 3
         self.columnas = 3
-        self.tablero = [[Piece("") for _ in range(self.columnas)] for _ in range(self.filas)]
+        self.tablero = [[Piezas("") for _ in range(self.columnas)] for _ in range(self.filas)]
 
     def mostrar(self):
         for fila in self.tablero:
-            print("|" + "|".join(str(piece).center(3) for piece in fila) + "|")
+            print("|" + "|".join(str(Piezas).center(3) for Piezas in fila) + "|")
             print("-" * (4 * self.columnas + 1))
 
     def agregar_ficha(self, ficha, fila, columna):
         if self.tablero[fila][columna].color == '':
-            self.tablero[fila][columna] = Piece(ficha)
+            self.tablero[fila][columna] = Piezas(ficha)
             return True
         else:
             return False
